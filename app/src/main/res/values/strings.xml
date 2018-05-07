@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">Restpedia</string>
+    <string name="app_version">v1.0.0</string>
+
+    <string name="home">Home</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="notifications">Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
+    <string name="my_account">My Account</string>
+    <string name="search">Search</string>
+    <string name="history">History</string>
+
+    <string name="order_now">Order now</string>
+    <string name="order">Order</string>
+    <string name="refresh">Refresh</string>
+    <string name="call">Call</string>
+    <string name="Compose">Compose message</string>
+
+    <string name="choose">Choose</string>
+    <string name="yes_sure">Yes, sure</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="ignore">Ignore</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="next">Next</string>
+    <string name="prev">Previous</string>
+    <string name="skip">Skip</string>
+
+    <string name="share">Share</string>
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
+    <string name="comment">Comment</string>
+    <string name="write">Write a message&#8230;</string>
+
+    <string name="get_started">Get started</string>
+    <string name="register">Do not have account? Register now</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_out">Sign out</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
+    <string name="full_name">Full name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="date">Date time</string>
+    <string name="address">Address</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="change_photo">Change photo</string>
+
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="line">Line</string>
+
+    <string name="foo_name">Arif Luthfiansyah</string>
+    <string name="foo_phone">+6285216863058</string>
+    <string name="foo_email">lutluthfiansyah@gmail.com</string>
+    <string name="foo_date">17 December 1997</string>
+    <string name="foo_time">17 Dec, 19:30</string>
+    <string name="foo_address">Jl. Ikan Tombro No 5B Tunjungsekar, Lowokwaru, Malang</string>
+    <string name="foo_service">Repair car machine</string>
+    <string name="foo_order_id">ORDER No HA-12345678</string>
+    <string name="foo_number">99</string>
+    <string name="foo_cost">Rp 100.000,-</string>
+
+    <string name="lorem_complete">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </string>
+    <string name="lorem_long">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </string>
+    <string name="lorem_short">Lorem ipsum dolor sit amet</string>
+    <string name="see_more">See more</string>
+    <string name="open_bottom_sheet">Tap to open details</string>
+    <string name="close_bottom_sheet">Tap to close details</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="rate_our_app">Rate our application</string>
+    <string name="ask_cancel">Are you sure want to cancel?</string>
+    <string name="success_general">Your task is complete</string>
+    <string name="warning">Warning</string>
+    <string name="error_general">Some error occur!</string>
+    <string name="error_ui">Some error in your ui</string>
+    <string name="error_sign_in">Wrong email or password</string>
+</resources>
