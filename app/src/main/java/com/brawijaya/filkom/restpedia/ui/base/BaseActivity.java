@@ -1,6 +1,8 @@
 package com.brawijaya.filkom.restpedia.ui.base;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.utils.CommonUtils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.Unbinder;
 
@@ -18,6 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     private ProgressDialog mProgressDialog;
     private Unbinder mUnbinder;
+    private FirebaseAuth mFirebaseAuth;
 
     public abstract void setupView();
 
@@ -26,9 +30,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
     protected void onDestroy() {
         if (mUnbinder != null) mUnbinder.unbind();
         super.onDestroy();
+    }
+
+    protected FirebaseAuth getFirebase() {
+        return mFirebaseAuth;
     }
 
     private void showSnackBar(String message) {

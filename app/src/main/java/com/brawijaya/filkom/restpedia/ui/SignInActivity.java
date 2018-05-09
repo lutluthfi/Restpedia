@@ -1,10 +1,7 @@
 package com.brawijaya.filkom.restpedia.ui;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +11,6 @@ import android.widget.Toast;
 import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.ui.base.BaseActivity;
 import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -29,29 +23,16 @@ public class SignInActivity extends BaseActivity {
     @BindView(R.id.button_sign_in) Button mSignInButton;
     @BindView(R.id.textview_sign_up) TextView mSignUpTextView;
 
-    private FirebaseAuth mFirebaseAuth;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         setUnbinder(ButterKnife.bind(this));
-        mFirebaseAuth = FirebaseAuth.getInstance();
         setupView();
     }
 
     @Override
-    public void setupView() { }
-
-    public void onSignInSuccess() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    public void onSignInFailed() {
-        Toast.makeText(getBaseContext(), "Sign in failed", Toast.LENGTH_LONG).show();
-        mSignInButton.setEnabled(true);
-        hideLoading();
+    public void setupView() {
     }
 
     public void onSignInClick(View view) {
@@ -63,17 +44,28 @@ public class SignInActivity extends BaseActivity {
             return;
         }
         mSignInButton.setEnabled(false);
-        mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
-           if (task.isSuccessful()) {
-               hideLoading();
-               startActivity(new Intent(SignInActivity.this, MainActivity.class));
-           }
-        });
+        getFirebase().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> hideLoading())
+                .addOnFailureListener(this, e -> {
+                    onError(e.getMessage());
+                    printLog("SingInActivity", e.getMessage());
+                }).addOnSuccessListener(this, authResult -> onSignInSuccess());
     }
 
     public void onSignUpClick(View view) {
         startActivity(new Intent(this, SignUpActivity.class));
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+
+    public void onSignInSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    public void onSignInFailed() {
+        Toast.makeText(getBaseContext(), "Sign in failed", Toast.LENGTH_LONG).show();
+        mSignInButton.setEnabled(true);
+        hideLoading();
     }
 
     public boolean validateSignIn(String email, String password) {

@@ -1,8 +1,6 @@
 package com.brawijaya.filkom.restpedia.ui;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +10,7 @@ import android.widget.Toast;
 import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.ui.base.BaseActivity;
 import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +48,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     public void onSignUpClick(View view) {
+        showLoading();
         String name = mNameEditText.getText().toString();
         String address = mAddressEditText.getText().toString();
         String email = mEmailEditText.getText().toString();
@@ -60,17 +60,18 @@ public class SignUpActivity extends BaseActivity {
             return;
         }
         mSignUpButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
-        new Handler().postDelayed(() -> {
-            onSignUpSuccess();
-            progressDialog.dismiss();
-        }, 3000);
-
+        getFirebase().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    // TODO : set to preference
+                })
+                .addOnFailureListener(this, e -> {
+                    onError(e.getMessage());
+                    printLog("SignUpActivity", e.getMessage());
+                })
+                .addOnSuccessListener(this, authResult -> {
+                    onSignUpSuccess();
+                    hideLoading();
+                });
     }
 
     public boolean validateSignUp(String name, String address, String email, String mobile, String password, String passwordConfirmation) {
