@@ -53,14 +53,14 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
+    private List<LatLng> mLatLongs;
+    private double latitudeValue = 0;
+    private double longitudeValue = 0;
+
     private GoogleMap mGoogleMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private MarkerOptions mCurrentMarker;
-
-    private List<LatLng> mLatLongs;
-    private double latitudeValue;
-    private double longitudeValue;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
