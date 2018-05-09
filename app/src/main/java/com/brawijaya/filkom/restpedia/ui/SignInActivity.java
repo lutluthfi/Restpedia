@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,16 +17,16 @@ import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener{
+public class SignInActivity extends BaseActivity implements View.OnClickListener{
     @BindView(R.id.input_email) EditText mEmail;
     @BindView(R.id.input_password) EditText mPassword;
-    @BindView(R.id.btn_login) Button mLogin;
-    @BindView(R.id.link_register) TextView mRegister;
+    @BindView(R.id.button_sign_in) Button mLogin;
+    @BindView(R.id.textview_sign_up) TextView mRegister;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signin);
         setUnbinder(ButterKnife.bind(this));
         mLogin.setOnClickListener(this);
         mRegister.setOnClickListener(this);
@@ -45,8 +44,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
         mLogin.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this, R.style.AppTheme);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -101,10 +99,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_login:
+            case R.id.button_sign_in:
                 login();
                 break;
-            case R.id.link_register:
+            case R.id.textview_sign_up:
                 Intent intent = new Intent(this, RegisterActivity.class);
                 startActivity(intent);
                 finish();

@@ -39,7 +39,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.SignInActivity"
             android:label="@string/sign_in"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
