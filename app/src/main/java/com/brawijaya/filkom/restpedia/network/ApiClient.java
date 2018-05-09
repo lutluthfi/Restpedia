@@ -1,5 +1,7 @@
 package com.brawijaya.filkom.restpedia.network;
 
+import com.brawijaya.filkom.restpedia.utils.AppConstants;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,7 +20,7 @@ public class ApiClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         if (mRetrofit == null) {
-            mRetrofit = new Retrofit.Builder().baseUrl("").client(client)
+            mRetrofit = new Retrofit.Builder().baseUrl(AppConstants.BASE_GOOGLE_API).client(client)
                     .addConverterFactory(GsonConverterFactory.create()).build();
         }
         return mRetrofit.create(ApiHelper.class);
