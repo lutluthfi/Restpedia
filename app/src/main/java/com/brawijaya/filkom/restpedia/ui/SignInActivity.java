@@ -34,6 +34,41 @@ public class SignInActivity extends BaseActivity {
     @Override
     public void setupView() { }
 
+    public void onSignInSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    public void onSignInFailed() {
+        Toast.makeText(getBaseContext(), "Sign in failed", Toast.LENGTH_LONG).show();
+        mSignInButton.setEnabled(true);
+    }
+
+    public void onSignInClick(View view) {
+        String email = mEmailEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+        if (!validateSignIn(email, password)) {
+            onSignInFailed();
+            return;
+        }
+        mSignInButton.setEnabled(false);
+        final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
+        new Handler().postDelayed(() -> {
+            onSignInSuccess();
+            progressDialog.dismiss();
+        }, 3000);
+    }
+
+    public void onSignUpClick(View view) {
+        startActivity(new Intent(this, SignUpActivity.class));
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+
     public boolean validateSignIn(String email, String password) {
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mEmailEditText.setError("Enter a valid email address");
@@ -43,42 +78,6 @@ public class SignInActivity extends BaseActivity {
             mPasswordEditText.setError("Enter password between 4 and 10 alphanumeric characters");
             return false;
         }
-        return email.equalsIgnoreCase("admin") && password.equalsIgnoreCase("secret");
-    }
-
-    public void onLoginSuccess() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-        mSignInButton.setEnabled(true);
-    }
-
-    public void onSignInClick(View view) {
-        String email = mEmailEditText.getText().toString();
-        String password = mPasswordEditText.getText().toString();
-        if (!validateSignIn(email, password)) {
-            onLoginFailed();
-            return;
-        }
-        mSignInButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this, R.style.AppTheme);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-        new Handler().postDelayed(() -> {
-            onLoginSuccess();
-            progressDialog.dismiss();
-        }, 3000);
-    }
-
-    public void onSignUpClick(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-        finish();
+        return email.equalsIgnoreCase("admin@example.com") && password.equalsIgnoreCase("secret");
     }
 }

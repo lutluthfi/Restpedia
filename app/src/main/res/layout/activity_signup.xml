@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SignUpActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="56dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large">
 
-        <ImageView android:src="@drawable/app_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/margin_large"
+            android:src="@drawable/app_logo"
+            tools:ignore="ContentDescription" />
 
-        <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_name"
+            android:layout_margin="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/edittext_sign_up_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Name" />
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/full_name"
+                android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Address Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_address"
+            android:layout_margin="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/edittext_sign_up_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Address" />
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/address"
+                android:inputType="textPostalAddress" />
         </android.support.design.widget.TextInputLayout>
-
 
 
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_email"
+            android:layout_margin="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/edittext_sign_up_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -65,58 +69,56 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_mobile"
+            android:layout_margin="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/edittext_sign_up_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Mobile Number" />
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/phone"
+                android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_password"
+            android:layout_margin="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/edittext_sign_up_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Password"/>
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Re-enter Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_reEnterPassword"
+            android:layout_margin="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/edittext_sign_up_password_confirmation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Re-enter Password"/>
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/password_confirmation"
+                android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Signup Button -->
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_register"
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/button_sign_up"
+            android:layout_width="match_parent"
+            android:onClick="onSignUpClick"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="Create Account"/>
-
-        <TextView android:id="@+id/link_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Already a member? Login"
-            android:gravity="center"
-            android:textSize="16dip"/>
-
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@drawable/bg_button"
+            android:backgroundTint="@color/colorPrimary"
+            android:hint="@string/sign_up"
+            android:textColorHint="@color/colorWhite" />
     </LinearLayout>
-</ScrollView>
+
+</android.support.v4.widget.NestedScrollView>
