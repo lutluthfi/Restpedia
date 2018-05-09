@@ -17,99 +17,68 @@ import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignInActivity extends BaseActivity implements View.OnClickListener{
-    @BindView(R.id.input_email) EditText mEmail;
-    @BindView(R.id.input_password) EditText mPassword;
-    @BindView(R.id.button_sign_in) Button mLogin;
-    @BindView(R.id.textview_sign_up) TextView mRegister;
+public class SignInActivity extends BaseActivity {
+
+    @BindView(R.id.edittext_sign_in_email) EditText mEmailEditText;
+    @BindView(R.id.edittext_sign_in_password) EditText mPasswordEditText;
+    @BindView(R.id.button_sign_in) Button mSignInButton;
+    @BindView(R.id.textview_sign_up) TextView mSignUpTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         setUnbinder(ButterKnife.bind(this));
-        mLogin.setOnClickListener(this);
-        mRegister.setOnClickListener(this);
     }
 
-    public void login() {
+    @Override
+    public void setupView() { }
 
-        String email = mEmail.getText().toString();
-        String password = mPassword.getText().toString();
-
-        if (!validate(email, password)) {
-            onLoginFailed();
-            return;
+    public boolean validateSignIn(String email, String password) {
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEmailEditText.setError("Enter a valid email address");
+            return false;
         }
-
-        mLogin.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this, R.style.AppTheme);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
-        // TODO: Implement your own authentication logic here.
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onLoginSuccess();
-                progressDialog.dismiss();
-            }
-        }, 3000);
+        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+            mPasswordEditText.setError("Enter password between 4 and 10 alphanumeric characters");
+            return false;
+        }
+        return email.equalsIgnoreCase("admin") && password.equalsIgnoreCase("secret");
     }
 
     public void onLoginSuccess() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-        mLogin.setEnabled(true);
+        mSignInButton.setEnabled(true);
     }
 
-    public boolean validate(String email, String password) {
-        boolean valid = true;
-
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mEmail.setError("enter a valid email address");
-            valid = false;
-        } else {
-            mEmail.setError(null);
+    public void onSignInClick(View view) {
+        String email = mEmailEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+        if (!validateSignIn(email, password)) {
+            onLoginFailed();
+            return;
         }
-
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            mPassword.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
-            mPassword.setError(null);
-        }
-
-        return valid;
+        mSignInButton.setEnabled(false);
+        final ProgressDialog progressDialog = new ProgressDialog(SignInActivity.this, R.style.AppTheme);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
+        new Handler().postDelayed(() -> {
+            onLoginSuccess();
+            progressDialog.dismiss();
+        }, 3000);
     }
 
-    @Override
-    public void setupView() {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_sign_in:
-                login();
-                break;
-            case R.id.textview_sign_up:
-                Intent intent = new Intent(this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                break;
-            default:
-                break;
-        }
+    public void onSignUpClick(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        finish();
     }
 }
