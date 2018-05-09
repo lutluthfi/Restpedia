@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Restpedia</string>
     <string name="app_version">v1.0.0</string>
+    <string name="google_maps_key">AIzaSyC88XDQzuXSjbonXf21lftdFutu25CR2JM</string>
 
     <string name="home">Home</string>
     <string name="dashboard">Dashboard</string>

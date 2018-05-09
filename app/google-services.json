@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "851403574915",
+    "firebase_url": "https://restpedia.firebaseio.com",
+    "project_id": "restpedia",
+    "storage_bucket": "restpedia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851403574915:android:111b085dae3442e1",
+        "android_client_info": {
+          "package_name": "com.brawijaya.filkom.restpedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851403574915-a4a9vpoj1o1aqmjehm4lrj7h4sbgdd95.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brawijaya.filkom.restpedia",
+            "certificate_hash": "642ffceb5b139c3613cabc9b7c99ba448c300c6d"
+          }
+        },
+        {
+          "client_id": "851403574915-vcesj6bcnpe1pb6r0nusu82k45q4st5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC88XDQzuXSjbonXf21lftdFutu25CR2JM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851403574915-vcesj6bcnpe1pb6r0nusu82k45q4st5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
