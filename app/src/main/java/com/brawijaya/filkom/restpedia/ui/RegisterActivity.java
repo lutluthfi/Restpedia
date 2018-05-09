@@ -3,9 +3,7 @@ package com.brawijaya.filkom.restpedia.ui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +30,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_signup);
         setUnbinder(ButterKnife.bind(this));
         mRegister.setOnClickListener(this);
         mLogin.setOnClickListener(this);
@@ -145,7 +143,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 signup();
                 break;
             case R.id.link_login:
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(),SignInActivity.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
