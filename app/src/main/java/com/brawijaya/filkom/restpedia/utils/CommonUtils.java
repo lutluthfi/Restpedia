@@ -28,6 +28,7 @@ public final class CommonUtils {
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("Please wait...");
         return progressDialog;
     }
 
