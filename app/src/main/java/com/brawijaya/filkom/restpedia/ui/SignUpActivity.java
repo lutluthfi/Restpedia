@@ -62,15 +62,15 @@ public class SignUpActivity extends BaseActivity {
         mSignUpButton.setEnabled(false);
         getFirebase().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    // TODO : set to preference
+                    hideLoading();
                 })
                 .addOnFailureListener(this, e -> {
                     onError(e.getMessage());
                     printLog("SignUpActivity", e.getMessage());
                 })
                 .addOnSuccessListener(this, authResult -> {
+                    // TODO : set preference user
                     onSignUpSuccess();
-                    hideLoading();
                 });
     }
 

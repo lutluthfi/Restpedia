@@ -35,6 +35,17 @@ public class SignInActivity extends BaseActivity {
     public void setupView() {
     }
 
+    public void onSignInSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    public void onSignInFailed() {
+        Toast.makeText(getBaseContext(), "Sign in failed", Toast.LENGTH_LONG).show();
+        mSignInButton.setEnabled(true);
+        hideLoading();
+    }
+
     public void onSignInClick(View view) {
         showLoading();
         String email = mEmailEditText.getText().toString();
@@ -49,23 +60,15 @@ public class SignInActivity extends BaseActivity {
                 .addOnFailureListener(this, e -> {
                     onError(e.getMessage());
                     printLog("SingInActivity", e.getMessage());
-                }).addOnSuccessListener(this, authResult -> onSignInSuccess());
+                }).addOnSuccessListener(this, authResult -> {
+                    // TODO : set preference user
+                    onSignInSuccess();
+                });
     }
 
     public void onSignUpClick(View view) {
         startActivity(new Intent(this, SignUpActivity.class));
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-    }
-
-    public void onSignInSuccess() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    public void onSignInFailed() {
-        Toast.makeText(getBaseContext(), "Sign in failed", Toast.LENGTH_LONG).show();
-        mSignInButton.setEnabled(true);
-        hideLoading();
     }
 
     public boolean validateSignIn(String email, String password) {
