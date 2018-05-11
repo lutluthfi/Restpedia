@@ -2,6 +2,7 @@ package com.brawijaya.filkom.restpedia.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,7 @@ public class SignUpActivity extends BaseActivity {
     public void onSignUpSuccess() {
         // Set preferences for signed in
         mPrefs.setIsUserSignedIn(true);
+        Log.d("SignUpActivity", "isUserSignedIn: " + mPrefs.isUserSignedIn());
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -56,6 +58,7 @@ public class SignUpActivity extends BaseActivity {
 
     public void onSignUpClick(View view) {
         showLoading();
+        mSignUpButton.setEnabled(false);
         String name = mNameEditText.getText().toString();
         String address = mAddressEditText.getText().toString();
         String email = mEmailEditText.getText().toString();
@@ -66,7 +69,6 @@ public class SignUpActivity extends BaseActivity {
             onSignUpFailed();
             return;
         }
-        mSignUpButton.setEnabled(false);
         getFirebase().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     hideLoading();
@@ -76,6 +78,7 @@ public class SignUpActivity extends BaseActivity {
                     printLog("SignUpActivity", e.getMessage());
                 })
                 .addOnSuccessListener(this, authResult -> {
+                    Toast.makeText(this, "Welcome: " + authResult.getUser().getEmail(), Toast.LENGTH_SHORT).show();
                     onSignUpSuccess();
                 });
     }

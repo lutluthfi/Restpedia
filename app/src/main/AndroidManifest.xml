@@ -40,10 +40,12 @@
         <activity
             android:name=".ui.SignInActivity"
             android:label="@string/sign_in"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SignUpActivity"
             android:label="@string/sign_up"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

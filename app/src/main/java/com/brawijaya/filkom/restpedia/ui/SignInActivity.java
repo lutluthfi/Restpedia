@@ -9,9 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brawijaya.filkom.restpedia.R;
+import com.brawijaya.filkom.restpedia.prefs.AppPreferencesHelper;
+import com.brawijaya.filkom.restpedia.prefs.PreferencesHelper;
 import com.brawijaya.filkom.restpedia.ui.base.BaseActivity;
 import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
-import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,11 +24,14 @@ public class SignInActivity extends BaseActivity {
     @BindView(R.id.button_sign_in) Button mSignInButton;
     @BindView(R.id.textview_sign_up) TextView mSignUpTextView;
 
+    private PreferencesHelper mPrefs;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         setUnbinder(ButterKnife.bind(this));
+        mPrefs = AppPreferencesHelper.with(this);
         setupView();
     }
 
@@ -36,6 +40,7 @@ public class SignInActivity extends BaseActivity {
     }
 
     public void onSignInSuccess() {
+        mPrefs.setIsUserSignedIn(true);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -43,27 +48,23 @@ public class SignInActivity extends BaseActivity {
     public void onSignInFailed() {
         Toast.makeText(getBaseContext(), "Sign in failed", Toast.LENGTH_LONG).show();
         mSignInButton.setEnabled(true);
-        hideLoading();
     }
 
     public void onSignInClick(View view) {
         showLoading();
+        mSignInButton.setEnabled(false);
         String email = mEmailEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
         if (!validateSignIn(email, password)) {
             onSignInFailed();
             return;
         }
-        mSignInButton.setEnabled(false);
         getFirebase().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> hideLoading())
                 .addOnFailureListener(this, e -> {
                     onError(e.getMessage());
                     printLog("SingInActivity", e.getMessage());
-                }).addOnSuccessListener(this, authResult -> {
-                    // TODO : set preference user
-                    onSignInSuccess();
-                });
+                }).addOnSuccessListener(this, authResult -> onSignInSuccess());
     }
 
     public void onSignUpClick(View view) {
@@ -80,6 +81,6 @@ public class SignInActivity extends BaseActivity {
             mPasswordEditText.setError("Enter password between 4 and 10 alphanumeric characters");
             return false;
         }
-        return email.equalsIgnoreCase("admin@example.com") && password.equalsIgnoreCase("secret");
+        return true;
     }
 }

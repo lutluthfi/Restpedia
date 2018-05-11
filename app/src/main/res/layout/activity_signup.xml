@@ -20,104 +20,61 @@
             android:src="@drawable/app_logo"
             tools:ignore="ContentDescription" />
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edittext_sign_up_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium">
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/full_name"
+            android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/edittext_sign_up_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext"
-                android:hint="@string/full_name"
-                android:inputType="textPersonName" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edittext_sign_up_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium">
-
-            <EditText
-                android:id="@+id/edittext_sign_up_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext"
-                android:hint="@string/address"
-                android:inputType="textPostalAddress" />
-        </android.support.design.widget.TextInputLayout>
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
 
 
-        <!--  Email Label -->
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edittext_sign_up_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium">
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/phone"
+            android:inputType="phone" />
 
-            <EditText
-                android:id="@+id/edittext_sign_up_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <!-- mobile number -->
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edittext_sign_up_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium">
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/edittext_sign_up_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext"
-                android:hint="@string/phone"
-                android:inputType="phone" />
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Password Label -->
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/edittext_sign_up_password_confirmation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium">
-
-            <EditText
-                android:id="@+id/edittext_sign_up_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium">
-
-            <EditText
-                android:id="@+id/edittext_sign_up_password_confirmation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edittext"
-                android:hint="@string/password_confirmation"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/password_confirmation"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/button_sign_up"
             android:layout_width="match_parent"
-            android:onClick="onSignUpClick"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
             android:background="@drawable/bg_button"
             android:backgroundTint="@color/colorPrimary"
             android:hint="@string/sign_up"
+            android:onClick="onSignUpClick"
             android:textColorHint="@color/colorWhite" />
     </LinearLayout>
 
