@@ -147,4 +147,7 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+    <color name="endblue">#0bcce6</color>
+    <color name="startblue">#09c6df</color>
+    <color name="graylight">#fafafa</color>
 </resources>
