@@ -32,6 +32,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean isUserSignedIn() {
-        return mPrefs.getBoolean(PREF_IS_USER_SIGNED_IN, false);
+        return mPrefs.getBoolean(PREF_IS_USER_SIGNED_IN, true);
     }
 }

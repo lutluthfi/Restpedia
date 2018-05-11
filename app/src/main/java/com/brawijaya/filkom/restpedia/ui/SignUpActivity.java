@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.brawijaya.filkom.restpedia.R;
+import com.brawijaya.filkom.restpedia.prefs.AppPreferencesHelper;
+import com.brawijaya.filkom.restpedia.prefs.PreferencesHelper;
 import com.brawijaya.filkom.restpedia.ui.base.BaseActivity;
 import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,11 +27,14 @@ public class SignUpActivity extends BaseActivity {
     @BindView(R.id.edittext_sign_up_password_confirmation) EditText mPasswordConfirmationEditText;
     @BindView(R.id.button_sign_up) Button mSignUpButton;
 
+    private PreferencesHelper mPrefs;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         setUnbinder(ButterKnife.bind(this));
+        mPrefs = AppPreferencesHelper.with(this);
         setupView();
     }
 
@@ -38,6 +43,8 @@ public class SignUpActivity extends BaseActivity {
     }
 
     public void onSignUpSuccess() {
+        // Set preferences for signed in
+        mPrefs.setIsUserSignedIn(true);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -69,7 +76,6 @@ public class SignUpActivity extends BaseActivity {
                     printLog("SignUpActivity", e.getMessage());
                 })
                 .addOnSuccessListener(this, authResult -> {
-                    // TODO : set preference user
                     onSignUpSuccess();
                 });
     }
