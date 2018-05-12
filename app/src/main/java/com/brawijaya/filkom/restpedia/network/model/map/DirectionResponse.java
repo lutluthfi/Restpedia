@@ -1,4 +1,4 @@
-package com.brawijaya.filkom.restpedia.network.model;
+package com.brawijaya.filkom.restpedia.network.model.map;
 
 import java.util.List;
 

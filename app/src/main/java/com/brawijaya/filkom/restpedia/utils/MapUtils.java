@@ -3,17 +3,15 @@ package com.brawijaya.filkom.restpedia.utils;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.brawijaya.filkom.restpedia.network.model.LegsResponse;
-import com.brawijaya.filkom.restpedia.network.model.PolylineResponse;
-import com.brawijaya.filkom.restpedia.network.model.RouteResponse;
-import com.brawijaya.filkom.restpedia.network.model.StepsResponse;
+import com.brawijaya.filkom.restpedia.network.model.map.LegsResponse;
+import com.brawijaya.filkom.restpedia.network.model.map.PolylineResponse;
+import com.brawijaya.filkom.restpedia.network.model.map.RouteResponse;
+import com.brawijaya.filkom.restpedia.network.model.map.StepsResponse;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;

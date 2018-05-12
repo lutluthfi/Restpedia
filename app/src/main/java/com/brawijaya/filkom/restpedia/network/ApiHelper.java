@@ -1,6 +1,6 @@
 package com.brawijaya.filkom.restpedia.network;
 
-import com.brawijaya.filkom.restpedia.network.model.DirectionResponse;
+import com.brawijaya.filkom.restpedia.network.model.map.DirectionResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package com.brawijaya.filkom.restpedia.network.model;
+package com.brawijaya.filkom.restpedia.network.model.firebase;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

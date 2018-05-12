@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.network.ApiClient;
-import com.brawijaya.filkom.restpedia.network.model.DirectionResponse;
-import com.brawijaya.filkom.restpedia.network.model.RestaurantResponse;
+import com.brawijaya.filkom.restpedia.network.model.map.DirectionResponse;
+import com.brawijaya.filkom.restpedia.network.model.firebase.RestaurantResponse;
 import com.brawijaya.filkom.restpedia.ui.base.BaseFragment;
 import com.brawijaya.filkom.restpedia.utils.AppConstants;
 import com.brawijaya.filkom.restpedia.utils.MapUtils;
