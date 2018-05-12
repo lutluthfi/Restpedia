@@ -55,9 +55,9 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
+    private String originLocation;
     private List<RestaurantResponse> mRestaurants;
     private List<LatLng> mLatLongs;
-    private List<LatLng> mRestaurantLatLongs;
 
     private GoogleMap mGoogleMap;
     private GoogleApiClient mGoogleApiClient;
@@ -142,6 +142,26 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
         }
     }
 
+    private void fetchDirectionGoogleMap(String origin, String destination) {
+        ApiClient.create().getDirectionFromGoogle(origin, destination, AppConstants.KEY_GOOGLE_API).enqueue(new Callback<DirectionResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<DirectionResponse> call, @NonNull Response<DirectionResponse> response) {
+                if (response.body() != null) {
+                    printLog(TAG, "onResponse: " + response.code());
+                    printLog(TAG, "onResponse: " + response.toString());
+                    List<LatLng> directions = MapUtils.getDirectionPolyline(Objects.requireNonNull(response.body()).getRoutes());
+                    MapUtils.drawRouteOnMap(mGoogleMap, directions);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DirectionResponse> call, @NonNull Throwable t) {
+                printLog(TAG, t.getMessage());
+                onError(t.getMessage());
+            }
+        });
+    }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
@@ -217,6 +237,7 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
             mGoogleMap.clear();
             mLatLongs.clear();
         }
+        setupRestaurantMarker();
         mLatLongs.add(latLng);
         printLog(TAG, "LatLong: " + latLng.toString());
         printLog(TAG, "Marker number: " + mLatLongs.size());
@@ -227,43 +248,37 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
         printLog(TAG, "destinationLocation: " + latLng.toString());
 
         // Use Google Direction API to get the route between these Locations
-        String origin = String.valueOf(defaultLocation.latitude) + "," + String.valueOf(defaultLocation.longitude);
+        originLocation = String.valueOf(defaultLocation.latitude) + "," + String.valueOf(defaultLocation.longitude);
         String destination = String.valueOf(latLng.latitude) + "," + String.valueOf(latLng.longitude);
-        ApiClient.create().getDirectionFromGoogle(origin, destination, AppConstants.KEY_GOOGLE_API).enqueue(new Callback<DirectionResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<DirectionResponse> call, @NonNull Response<DirectionResponse> response) {
-                if (response.body() != null) {
-                    printLog(TAG, "onResponse: " + response.code());
-                    printLog(TAG, "onResponse: " + response.toString());
-                    List<LatLng> directions = MapUtils.getDirectionPolyline(Objects.requireNonNull(response.body()).getRoutes());
-                    MapUtils.drawRouteOnMap(mGoogleMap, directions);
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<DirectionResponse> call, @NonNull Throwable t) {
-                printLog(TAG, t.getMessage());
-                onError(t.getMessage());
-            }
-        });
+        fetchDirectionGoogleMap(originLocation, destination);
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         switch (marker.getTitle()) {
             case "Kober Mie Setan Soekarno Hatta":
+                String destination1 = String.valueOf(mRestaurants.get(0).getLat()) + "," + mRestaurants.get(0).getLong();
+                fetchDirectionGoogleMap(originLocation, destination1);
                 RestaurantDialog.newInstance(mRestaurants.get(0)).show(getFragmentManager(), RestaurantDialog.TAG);
                 return true;
             case "Warkop Brewok":
+                String destination2 = String.valueOf(mRestaurants.get(1).getLat()) + "," + mRestaurants.get(1).getLong();
+                fetchDirectionGoogleMap(originLocation, destination2);
                 RestaurantDialog.newInstance(mRestaurants.get(1)).show(getFragmentManager(), RestaurantDialog.TAG);
                 return true;
             case "Cak Per Soekarno Hatta":
+                String destination = String.valueOf(mRestaurants.get(2).getLat()) + "," + mRestaurants.get(2).getLong();
+                fetchDirectionGoogleMap(originLocation, destination);
                 RestaurantDialog.newInstance(mRestaurants.get(2)).show(getFragmentManager(), RestaurantDialog.TAG);
                 return true;
             case "Soto Ayam Babon":
+                String destination3 = String.valueOf(mRestaurants.get(3).getLat()) + "," + mRestaurants.get(3).getLong();
+                fetchDirectionGoogleMap(originLocation, destination3);
                 RestaurantDialog.newInstance(mRestaurants.get(3)).show(getFragmentManager(), RestaurantDialog.TAG);
                 return true;
             case "McDonald's Watugong":
+                String destination4 = String.valueOf(mRestaurants.get(4).getLat()) + "," + mRestaurants.get(4).getLong();
+                fetchDirectionGoogleMap(originLocation, destination4);
                 RestaurantDialog.newInstance(mRestaurants.get(4)).show(getFragmentManager(), RestaurantDialog.TAG);
                 return true;
         }

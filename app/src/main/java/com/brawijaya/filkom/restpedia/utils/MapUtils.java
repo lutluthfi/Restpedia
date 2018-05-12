@@ -47,6 +47,17 @@ public final class MapUtils {
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
+    public static void drawRouteOnMap(GoogleMap map, LatLng directions){
+        Log.d("MapUtils", "drawRouteOnMap");
+        PolylineOptions options = new PolylineOptions().width(8).color(Color.BLUE).geodesic(true);
+        options.add(directions);
+        map.addPolyline(options);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(directions.latitude, directions.longitude))
+                .zoom(17).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
     public static List<LatLng> getDirectionPolyline(List<RouteResponse> routes){
         List<LatLng> directionList = new ArrayList<>();
         for(RouteResponse route : routes){
