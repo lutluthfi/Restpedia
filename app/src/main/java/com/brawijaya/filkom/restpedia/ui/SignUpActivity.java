@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.brawijaya.filkom.restpedia.R;
+import com.brawijaya.filkom.restpedia.network.model.UserLocal;
 import com.brawijaya.filkom.restpedia.prefs.AppPreferencesHelper;
 import com.brawijaya.filkom.restpedia.prefs.PreferencesHelper;
 import com.brawijaya.filkom.restpedia.ui.base.BaseActivity;
 import com.brawijaya.filkom.restpedia.ui.main.MainActivity;
+import com.brawijaya.filkom.restpedia.utils.AppConstants;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -42,17 +44,22 @@ public class SignUpActivity extends BaseActivity {
     public void setupView() {
     }
 
-    public void onSignUpSuccess() {
+    public void onSignUpSuccess(String email, String password) {
         // Set preferences for signed in
+        hideLoading();
         mPrefs.setIsUserSignedIn(true);
+        mPrefs.setUserSignedIn(new UserLocal(AppConstants.USER_NAME, email,
+                AppConstants.USER_PHOTO , AppConstants.USER_PHONE,
+                AppConstants.USER_ADDRESS, password));
         Log.d("SignUpActivity", "isUserSignedIn: " + mPrefs.isUserSignedIn());
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     public void onSignUpFailed() {
-        Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+        hideLoading();
         mSignUpButton.setEnabled(true);
+        Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
     }
 
     public void onSignUpClick(View view) {
@@ -77,7 +84,7 @@ public class SignUpActivity extends BaseActivity {
                 })
                 .addOnSuccessListener(this, authResult -> {
                     Toast.makeText(this, "Welcome: " + authResult.getUser().getEmail(), Toast.LENGTH_SHORT).show();
-                    onSignUpSuccess();
+                    onSignUpSuccess(email, password);
                 });
     }
 

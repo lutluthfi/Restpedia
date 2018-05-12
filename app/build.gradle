@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.firebase:firebase-core:15.0.2'
     // Utils
+    implementation 'com.mlsdev.rximagepicker:library:2.0.2'
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
     implementation 'com.intuit.ssp:ssp-android:1.0.5'
     implementation 'com.jakewharton:butterknife:8.8.1'

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrey200"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:background="@color/colorWhite"
+                android:paddingBottom="@dimen/padding_large"
+                android:paddingLeft="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_large">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageview_profile_photo"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:scaleType="centerCrop"
+                    android:src="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/textview_profile_name"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/imageview_profile_photo"
+                    android:layout_toStartOf="@id/button_profile_edit"
+                    android:text="@string/foo_name"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/textview_profile_email"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview_profile_name"
+                    android:layout_toEndOf="@+id/imageview_profile_photo"
+                    android:text="@string/foo_email"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/textview_profile_phone"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview_profile_email"
+                    android:layout_toEndOf="@+id/imageview_profile_photo"
+                    android:text="@string/foo_phone"
+                    android:textColor="@color/colorBlack" />
+
+                <Button
+                    android:id="@+id/button_profile_edit"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/colorTransparent"
+                    android:text="@string/edit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorGreen500"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_medium"
+                android:paddingLeft="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_medium"
+                android:visibility="invisible">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Click below to connect your Help Me account with Facebook" />
+
+                <Button
+                    android:id="@+id/button_profile_facebook_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:background="@drawable/bg_button"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="@string/facebook"
+                    android:textColorHint="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large">
+
+                <RelativeLayout
+                    android:id="@+id/layout_profile_terms_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/_16sdp"
+                        android:drawableStart="@drawable/ic_info"
+                        android:drawableTint="@color/colorGrey500"
+                        android:gravity="center_vertical"
+                        android:text="@string/terms_of_service"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/colorBlack" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_profile_privacy_policy"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/_16sdp"
+                        android:drawableStart="@drawable/ic_insert_drive_file"
+                        android:drawableTint="@color/colorGrey500"
+                        android:gravity="center_vertical"
+                        android:text="@string/privacy_policy"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/colorBlack" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_42sdp"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/_16sdp"
+                        android:drawableStart="@drawable/ic_star"
+                        android:drawableTint="@color/colorGrey500"
+                        android:gravity="center_vertical"
+                        android:text="@string/rate_our_app"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/app_version"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_profile_sign_out"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@color/colorWhite"
+                android:hint="@string/sign_out"
+                android:textColorHint="@color/colorRed500"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <include layout="@layout/bottom_sheet_profile" />
+
+</android.support.design.widget.CoordinatorLayout>

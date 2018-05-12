@@ -46,7 +46,6 @@
             android:label="@string/sign_up"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.ProfileActivity"></activity>
     </application>
 
 </manifest>

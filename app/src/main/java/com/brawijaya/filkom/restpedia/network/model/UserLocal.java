@@ -4,11 +4,12 @@ public class UserLocal {
 
     private String name;
     private String email;
+    private String photo;
     private String phone;
     private String address;
     private String password;
 
-    public UserLocal(String name, String email, String phone, String address, String password) {
+    public UserLocal(String name, String email, String photo, String phone, String address, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -30,6 +31,14 @@ public class UserLocal {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getPhone() {
