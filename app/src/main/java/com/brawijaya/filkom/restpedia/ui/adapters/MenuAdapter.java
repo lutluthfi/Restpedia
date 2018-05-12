@@ -48,7 +48,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mMenus.size();
     }
 
     static class MenuViewHolder extends RecyclerView.ViewHolder {
@@ -69,6 +69,10 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private void onBind(int position) {
+            Glide.with(itemView.getContext()).asBitmap().load(mMenus.get(position).getFoto()).into(mFoodImageView);
+            mFoodNameTextView.setText(mMenus.get(position).getNama());
+            mFoodPriceTextView.setText(String.format("Rp. %s", mMenus.get(position).getHarga()));
+            mFoodTypeTextView.setText(mMenus.get(position).getJenis());
         }
     }
 }

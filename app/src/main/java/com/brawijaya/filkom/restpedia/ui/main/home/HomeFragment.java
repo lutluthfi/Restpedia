@@ -15,6 +15,7 @@ import com.brawijaya.filkom.restpedia.network.ApiClient;
 import com.brawijaya.filkom.restpedia.network.model.map.DirectionResponse;
 import com.brawijaya.filkom.restpedia.network.model.firebase.RestaurantResponse;
 import com.brawijaya.filkom.restpedia.ui.base.BaseFragment;
+import com.brawijaya.filkom.restpedia.ui.main.home.restaurant.RestaurantDialog;
 import com.brawijaya.filkom.restpedia.utils.AppConstants;
 import com.brawijaya.filkom.restpedia.utils.MapUtils;
 import com.google.android.gms.common.ConnectionResult;
@@ -251,15 +252,20 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
     public boolean onMarkerClick(Marker marker) {
         switch (marker.getTitle()) {
             case "Kober Mie Setan Soekarno Hatta":
-                break;
+                RestaurantDialog.newInstance(mRestaurants.get(0)).show(getFragmentManager(), RestaurantDialog.TAG);
+                return true;
             case "Warkop Brewok":
-                break;
+                RestaurantDialog.newInstance(mRestaurants.get(1)).show(getFragmentManager(), RestaurantDialog.TAG);
+                return true;
             case "Cak Per Soekarno Hatta":
-                break;
+                RestaurantDialog.newInstance(mRestaurants.get(2)).show(getFragmentManager(), RestaurantDialog.TAG);
+                return true;
             case "Soto Ayam Babon":
-                break;
+                RestaurantDialog.newInstance(mRestaurants.get(3)).show(getFragmentManager(), RestaurantDialog.TAG);
+                return true;
             case "McDonald's Watugong":
-                break;
+                RestaurantDialog.newInstance(mRestaurants.get(4)).show(getFragmentManager(), RestaurantDialog.TAG);
+                return true;
         }
         return false;
     }
