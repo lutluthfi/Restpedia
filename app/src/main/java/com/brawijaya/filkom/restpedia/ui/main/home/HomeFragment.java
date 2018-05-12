@@ -177,6 +177,7 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
                             addLocationMarker(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()), "Current Location");
                             MapUtils.addCameraToMap(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()));
                             if (mLocationMarker == null) mLocationMarker = new MarkerOptions();
+                            originLocation = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
                             mLocationMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
                             printLog(TAG, "onConnected: createdMarker");
                         });
@@ -213,6 +214,7 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
                             addLocationMarker(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()), "Current Location");
                             MapUtils.addCameraToMap(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()));
                             if (mLocationMarker == null) mLocationMarker = new MarkerOptions();
+                            originLocation = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
                             mLocationMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
                             printLog(TAG, "onRequestPermissionsResult: createdMarker");
                         });
@@ -231,30 +233,34 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
         printLog(TAG, "onMapReady");
     }
 
+    // TODO : Untuk melihat direction ketika kita memilih location di map secara manual
     @Override
     public void onMapClick(LatLng latLng) {
-        if (mLatLongs.size() > 0) {
-            mGoogleMap.clear();
-            mLatLongs.clear();
-        }
-        setupRestaurantMarker();
-        mLatLongs.add(latLng);
-        printLog(TAG, "LatLong: " + latLng.toString());
-        printLog(TAG, "Marker number: " + mLatLongs.size());
-        mGoogleMap.addMarker(mLocationMarker);
-        mGoogleMap.addMarker(new MarkerOptions().position(latLng));
-        LatLng defaultLocation = mLocationMarker.getPosition();
-        printLog(TAG, "defaultLocation: " + defaultLocation.toString());
-        printLog(TAG, "destinationLocation: " + latLng.toString());
-
-        // Use Google Direction API to get the route between these Locations
-        originLocation = String.valueOf(defaultLocation.latitude) + "," + String.valueOf(defaultLocation.longitude);
-        String destination = String.valueOf(latLng.latitude) + "," + String.valueOf(latLng.longitude);
-        fetchDirectionGoogleMap(originLocation, destination);
+//        if (mLatLongs.size() > 0) {
+//            mGoogleMap.clear();
+//            mLatLongs.clear();
+//        }
+//        setupRestaurantMarker();
+//        mLatLongs.add(latLng);
+//        printLog(TAG, "LatLong: " + latLng.toString());
+//        printLog(TAG, "Marker number: " + mLatLongs.size());
+//        mGoogleMap.addMarker(mLocationMarker);
+//        mGoogleMap.addMarker(new MarkerOptions().position(latLng));
+//        LatLng defaultLocation = mLocationMarker.getPosition();
+//        printLog(TAG, "defaultLocation: " + defaultLocation.toString());
+//        printLog(TAG, "destinationLocation: " + latLng.toString());
+//
+//        // Use Google Direction API to get the route between these Locations
+//        originLocation = String.valueOf(defaultLocation.latitude) + "," + String.valueOf(defaultLocation.longitude);
+//        String destination = String.valueOf(latLng.latitude) + "," + String.valueOf(latLng.longitude);
+//        fetchDirectionGoogleMap(originLocation, destination);
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        mGoogleMap.clear();
+        mGoogleMap.addMarker(mLocationMarker);
+        setupRestaurantMarker();
         switch (marker.getTitle()) {
             case "Kober Mie Setan Soekarno Hatta":
                 String destination1 = String.valueOf(mRestaurants.get(0).getLat()) + "," + mRestaurants.get(0).getLong();
