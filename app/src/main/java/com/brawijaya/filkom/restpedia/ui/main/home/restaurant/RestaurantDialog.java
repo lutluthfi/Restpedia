@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.network.model.firebase.RestaurantResponse;
 import com.brawijaya.filkom.restpedia.ui.base.BaseDialog;
+
+import butterknife.ButterKnife;
 
 public class RestaurantDialog extends BaseDialog {
 
@@ -29,8 +32,9 @@ public class RestaurantDialog extends BaseDialog {
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.dialog_restaurant, container, false);
+        setUnBinder(ButterKnife.bind(this, view));
+        return view;
     }
 
     @Override

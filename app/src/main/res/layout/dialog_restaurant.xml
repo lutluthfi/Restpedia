@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_dialog_restaurant"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/margin_large"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/border_medium"
+        app:cardElevation="@dimen/_2sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_large">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageview_restaurant"
+                    android:layout_width="@dimen/_48sdp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:src="@color/colorGrey300"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="@dimen/_2sdp" />
+
+                <TextView
+                    android:id="@+id/textview_restaurant_name"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/imageview_restaurant"
+                    android:text="@string/restaurant" />
+
+                <TextView
+                    android:id="@+id/textview_restaurant_position"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview_restaurant_name"
+                    android:layout_toEndOf="@+id/imageview_restaurant"
+                    android:text="@string/location" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_restaurant_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
