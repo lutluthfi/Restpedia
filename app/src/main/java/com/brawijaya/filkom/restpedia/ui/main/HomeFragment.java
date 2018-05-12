@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.network.ApiClient;
 import com.brawijaya.filkom.restpedia.network.model.DirectionResponse;
+import com.brawijaya.filkom.restpedia.network.model.RestaurantResponse;
 import com.brawijaya.filkom.restpedia.ui.base.BaseFragment;
 import com.brawijaya.filkom.restpedia.utils.AppConstants;
 import com.brawijaya.filkom.restpedia.utils.MapUtils;
@@ -31,7 +32,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,16 +51,21 @@ import retrofit2.Response;
 
 import static com.brawijaya.filkom.restpedia.utils.AppConstants.PERMISSION_LOCATION_REQUEST_CODE;
 
-public class HomeFragment extends BaseFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class HomeFragment extends BaseFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
+    private List<RestaurantResponse> mRestaurants;
     private List<LatLng> mLatLongs;
+    private List<LatLng> mRestaurantLatLongs;
 
     private GoogleMap mGoogleMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private MarkerOptions mLocationMarker;
+    private MarkerOptions mRestaurantMarker;
+
+    private DatabaseReference mDatabaseReference;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -67,6 +79,7 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         setUnBinder(ButterKnife.bind(this, view));
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         return view;
     }
 
@@ -85,31 +98,49 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
     @Override
     public void setupView(View view) {
         getBaseActivity().setTitle(getString(R.string.home));
+        mRestaurants = new ArrayList<>();
         mLatLongs = new ArrayList<>();
         if (mGoogleApiClient == null)
             mGoogleApiClient = new GoogleApiClient.Builder(getBaseActivity())
-                    .addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API).build();
         mLocationRequest = MapUtils.createLocationRequest();
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
         if (mapFragment != null) mapFragment.getMapAsync(this);
         else printLog(TAG, "SupportMapFragment is null");
     }
 
-    private void assignLocationValues(Location currentLocation) {
-        if (currentLocation != null) {
-            printLog(TAG, "assignLocationValues: " + currentLocation.toString());
-            markStartingLocationOnMap(mGoogleMap, new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
-            MapUtils.addCameraToMap(mGoogleMap, new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
-        }
+    private void setupRestaurantMarker() {
+        if (mRestaurantMarker == null) mRestaurantMarker = new MarkerOptions();
+        mDatabaseReference.child("restaurant").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot restaurantsSnapShot : dataSnapshot.getChildren()) {
+                    RestaurantResponse restaurant = restaurantsSnapShot.getValue(RestaurantResponse.class);
+                    if (restaurant != null) {
+                        double restaurantLat = Double.parseDouble(restaurant.getLat());
+                        double restaurantLong = Double.parseDouble(restaurant.getLong());
+                        addLocationMarker(mGoogleMap, new LatLng(restaurantLat, restaurantLong), restaurant.getNama());
+                        mRestaurants.add(restaurant);
+                        printLog("HomeFragment", "setupRestaurantMarker: " + restaurant.getLat() + "," + restaurant.getLong());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                printLog("HomeFragment", "onCancelled: " + databaseError.getMessage());
+            }
+        });
     }
 
-    private void markStartingLocationOnMap(GoogleMap mapObject, LatLng location) {
+    private void addLocationMarker(GoogleMap mapObject, LatLng location, String title) {
         if (mapObject != null) {
-            mapObject.addMarker(new MarkerOptions().position(location).title("Current location"));
+            mapObject.addMarker(new MarkerOptions().position(location).title(title));
             mapObject.moveCamera(CameraUpdateFactory.newLatLng(location));
         }
     }
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -123,7 +154,8 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
                     if (ActivityCompat.checkSelfPermission(getBaseActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                             && ActivityCompat.checkSelfPermission(getBaseActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         LocationServices.getFusedLocationProviderClient(getBaseActivity()).getLastLocation().addOnSuccessListener(getBaseActivity(), location -> {
-                            assignLocationValues(location);
+                            addLocationMarker(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()), "Current Location");
+                            MapUtils.addCameraToMap(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()));
                             if (mLocationMarker == null) mLocationMarker = new MarkerOptions();
                             mLocationMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
                             printLog(TAG, "onConnected: createdMarker");
@@ -158,7 +190,8 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
                     if (ActivityCompat.checkSelfPermission(getBaseActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                             && ActivityCompat.checkSelfPermission(getBaseActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         LocationServices.getFusedLocationProviderClient(getBaseActivity()).getLastLocation().addOnSuccessListener(getBaseActivity(), location -> {
-                            assignLocationValues(location);
+                            addLocationMarker(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()), "Current Location");
+                            MapUtils.addCameraToMap(mGoogleMap, new LatLng(location.getLatitude(), location.getLongitude()));
                             if (mLocationMarker == null) mLocationMarker = new MarkerOptions();
                             mLocationMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
                             printLog(TAG, "onRequestPermissionsResult: createdMarker");
@@ -173,6 +206,8 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setOnMapClickListener(this);
+        mGoogleMap.setOnMarkerClickListener(this);
+        setupRestaurantMarker();
         printLog(TAG, "onMapReady");
     }
 
@@ -190,6 +225,7 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
         LatLng defaultLocation = mLocationMarker.getPosition();
         printLog(TAG, "defaultLocation: " + defaultLocation.toString());
         printLog(TAG, "destinationLocation: " + latLng.toString());
+
         // Use Google Direction API to get the route between these Locations
         String origin = String.valueOf(defaultLocation.latitude) + "," + String.valueOf(defaultLocation.longitude);
         String destination = String.valueOf(latLng.latitude) + "," + String.valueOf(latLng.longitude);
@@ -210,5 +246,22 @@ public class HomeFragment extends BaseFragment implements OnMapReadyCallback, Go
                 onError(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        switch (marker.getTitle()) {
+            case "Kober Mie Setan Soekarno Hatta":
+                break;
+            case "Warkop Brewok":
+                break;
+            case "Cak Per Soekarno Hatta":
+                break;
+            case "Soto Ayam Babon":
+                break;
+            case "McDonald's Watugong":
+                break;
+        }
+        return false;
     }
 }

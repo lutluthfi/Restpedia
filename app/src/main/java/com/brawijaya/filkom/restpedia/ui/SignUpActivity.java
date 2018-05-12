@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 public class SignUpActivity extends BaseActivity {
 
     @BindView(R.id.edittext_sign_up_name) EditText mNameEditText;
-    @BindView(R.id.edittext_sign_up_address) EditText mAddressEditText;
     @BindView(R.id.edittext_sign_up_email) EditText mEmailEditText;
     @BindView(R.id.edittext_sign_up_phone) EditText mPhoneEditText;
     @BindView(R.id.edittext_sign_up_password) EditText mPasswordEditText;
@@ -60,12 +59,11 @@ public class SignUpActivity extends BaseActivity {
         showLoading();
         mSignUpButton.setEnabled(false);
         String name = mNameEditText.getText().toString();
-        String address = mAddressEditText.getText().toString();
         String email = mEmailEditText.getText().toString();
         String mobile = mPhoneEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
         String passwordConfirmation = mPasswordConfirmationEditText.getText().toString();
-        if (!validateSignUp(name, address, email, mobile, password, passwordConfirmation)) {
+        if (!validateSignUp(name, email, mobile, password, passwordConfirmation)) {
             onSignUpFailed();
             return;
         }
@@ -83,20 +81,16 @@ public class SignUpActivity extends BaseActivity {
                 });
     }
 
-    public boolean validateSignUp(String name, String address, String email, String mobile, String password, String passwordConfirmation) {
+    public boolean validateSignUp(String name, String email, String mobile, String password, String passwordConfirmation) {
         if (name.isEmpty() || name.length() < 3) {
             mNameEditText.setError("At least 3 characters");
-            return false;
-        }
-        if (address.isEmpty()) {
-            mAddressEditText.setError("Enter valid address");
             return false;
         }
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mEmailEditText.setError("Enter a valid email address");
             return false;
         }
-        if (mobile.isEmpty() || mobile.length() != 10) {
+        if (mobile.isEmpty()) {
             mPhoneEditText.setError("Enter valid mobile number");
             return false;
         }
