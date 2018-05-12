@@ -1,4 +1,4 @@
-package com.brawijaya.filkom.restpedia.ui.main;
+package com.brawijaya.filkom.restpedia.ui.main.profile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.brawijaya.filkom.restpedia.R;
 import com.brawijaya.filkom.restpedia.ui.base.BaseActivity;
+import com.brawijaya.filkom.restpedia.ui.main.home.HomeFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
