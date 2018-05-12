@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_item_list_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginTop="@dimen/margin_small">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageview_menu_food"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:src="@color/colorGrey300" />
+
+    <TextView
+        android:id="@+id/textview_menu_food_name"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imageview_menu_food"
+        android:text="@string/food_name" />
+
+    <TextView
+        android:id="@+id/textview_menu_food_price"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_menu_food_name"
+        android:layout_toEndOf="@+id/imageview_menu_food"
+        android:text="@string/food_price" />
+
+    <TextView
+        android:id="@+id/textview_menu_food_type"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_menu_food_price"
+        android:layout_toEndOf="@+id/imageview_menu_food"
+        android:text="@string/food_type" />
+</RelativeLayout>

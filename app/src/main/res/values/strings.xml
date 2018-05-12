@@ -12,6 +12,12 @@
     <string name="search">Search</string>
     <string name="history">History</string>
 
+    <string name="food_name">Food name</string>
+    <string name="food_price">Food price</string>
+    <string name="food_type">Food type</string>
+    <string name="location">Location</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="menu">Menu Restaurant</string>
     <string name="order_now">Order now</string>
     <string name="order">Order</string>
     <string name="refresh">Refresh</string>
@@ -67,9 +73,9 @@
     <string name="twitter">Twitter</string>
     <string name="line">Line</string>
 
-    <string name="foo_name">Arif Luthfiansyah</string>
+    <string name="foo_name">John Doe</string>
     <string name="foo_phone">+6285216863058</string>
-    <string name="foo_email">lutluthfiansyah@gmail.com</string>
+    <string name="foo_email">example@example.com</string>
     <string name="foo_date">17 December 1997</string>
     <string name="foo_time">17 Dec, 19:30</string>
     <string name="foo_address">Jl. Ikan Tombro No 5B Tunjungsekar, Lowokwaru, Malang</string>
